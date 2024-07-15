@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
@@ -42,4 +43,13 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    implementation(libs.kotlin.dateTime)
+    implementation(libs.kotlin.serialization.core)
+    implementation(libs.kotlin.serialization.json)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.kotlin.coroutines.android)
+
+    testImplementation(libs.junit.junit)
+    testImplementation(libs.kotlin.test)
 }
