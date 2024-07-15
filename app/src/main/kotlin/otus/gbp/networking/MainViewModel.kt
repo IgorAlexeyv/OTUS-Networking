@@ -6,11 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import otus.gbp.networking.data.ViewState
+import otus.gbp.networking.net.GetProfile
 import otus.gbp.networking.net.NetService
 import javax.inject.Inject
 
@@ -32,4 +35,14 @@ class MainViewModel @Inject constructor(private val service: NetService) : ViewM
 abstract class MainModule {
     @Binds
     abstract fun netService(impl: NetService.Impl) : NetService
+
+    @Binds
+    abstract fun getProfile(impl: GetProfile.Impl) : GetProfile
+}
+
+@Module
+@InstallIn(ViewModelComponent::class)
+class MainModuleProvider {
+    @Provides
+    fun okHttp(): OkHttpClient = OkHttpClient.Builder().build()
 }
