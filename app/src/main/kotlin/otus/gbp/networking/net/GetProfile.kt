@@ -14,7 +14,7 @@ interface GetProfile {
 
     class Impl @Inject constructor(private val api: Api) : GetProfile {
         override suspend fun invoke(): Profile {
-            val response = api.getProfile()
+            val response = api.getProfile(123)
             if (!response.isSuccessful) {
                 throw IOException("Unexpected code $response")
             }

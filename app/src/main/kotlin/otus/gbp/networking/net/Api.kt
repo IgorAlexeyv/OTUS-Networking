@@ -8,12 +8,13 @@ import otus.gbp.networking.data.Profile
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 private const val baseUrl = "https://my-json-server.typicode.com/Android-Developer-Basic/Networking/"
 
 interface Api {
     @GET("profile")
-    suspend fun getProfile(): Response<Profile>
+    suspend fun getProfile(@Query("id") id: Int): Response<Profile>
 }
 
 fun buildRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
