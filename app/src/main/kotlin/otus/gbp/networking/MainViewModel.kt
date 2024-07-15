@@ -13,13 +13,16 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import otus.gbp.networking.data.ViewState
+import otus.gbp.networking.net.AuthInterceptor
 import otus.gbp.networking.net.GetProfile
 import otus.gbp.networking.net.NetService
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val service: NetService) : ViewModel() {
@@ -48,8 +51,9 @@ abstract class MainModule {
 @InstallIn(ViewModelComponent::class)
 class MainModuleProvider {
     @Provides
-    fun okHttp(): OkHttpClient = OkHttpClient.Builder()
+    fun okHttp(authInterceptor: AuthInterceptor): OkHttpClient = OkHttpClient.Builder()
         .callTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor(authInterceptor)
         .addInterceptor(HttpLoggingInterceptor().apply {
             setLevel(HttpLoggingInterceptor.Level.BASIC)
         })
