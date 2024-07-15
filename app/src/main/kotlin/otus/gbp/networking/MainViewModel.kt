@@ -18,11 +18,13 @@ import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import otus.gbp.networking.data.Profile
 import otus.gbp.networking.data.ViewState
 import otus.gbp.networking.net.Api
 import otus.gbp.networking.net.AuthInterceptor
 import otus.gbp.networking.net.GetProfile
 import otus.gbp.networking.net.NetService
+import otus.gbp.networking.net.SetProfile
 import otus.gbp.networking.net.buildRetrofit
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
@@ -40,6 +42,13 @@ class MainViewModel @Inject constructor(private val service: NetService) : ViewM
             mUiState.value = ViewState.Content(service.getProfile())
         }
     }
+
+    fun setProfile(profile: Profile) {
+        viewModelScope.launch {
+            mUiState.value = ViewState.Loading
+            mUiState.value = ViewState.Content(service.setProfile(profile))
+        }
+    }
 }
 
 @Module
@@ -50,6 +59,9 @@ abstract class MainModule {
 
     @Binds
     abstract fun getProfile(impl: GetProfile.Impl) : GetProfile
+
+    @Binds
+    abstract fun setProfile(impl: SetProfile.Impl) : SetProfile
 }
 
 @Module

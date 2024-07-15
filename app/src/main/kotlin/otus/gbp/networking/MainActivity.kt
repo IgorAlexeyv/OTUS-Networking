@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.datetime.Instant
 import otus.gbp.networking.data.Profile
 import otus.gbp.networking.data.ViewState
 import otus.gbp.networking.databinding.ActivityMainBinding
@@ -34,6 +35,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             viewModel.getProfile()
+        }
+        binding.save.setOnClickListener {
+            viewModel.setProfile(Profile(
+                userId = 1,
+                name = "Vasya",
+                age = 25,
+                registered = Instant.parse("2023-11-17T11:43:22.306Z"),
+                interests = listOf("рыбалка", "корутины", "футбол")
+            ))
         }
     }
 
