@@ -2,6 +2,12 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlinSerialization)
+    id("kotlin-kapt")
+    alias(libs.plugins.hilt)
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 android {
@@ -25,14 +31,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
+    }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
     }
 }
 
@@ -50,6 +59,16 @@ dependencies {
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.kotlin.coroutines.android)
 
+    implementation(libs.net.okhttp)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    implementation(libs.lifecycle.viewmodel)
+
     testImplementation(libs.junit.junit)
     testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.mockito)
+    testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.androidx.testing)
 }
