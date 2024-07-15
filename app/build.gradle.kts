@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.kotlin.coroutines.android)
 
     implementation(libs.net.okhttp)
+    implementation(libs.net.okhttp.logging)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

@@ -1,5 +1,6 @@
 package otus.gbp.networking
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,8 +11,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import otus.gbp.networking.data.ViewState
 import otus.gbp.networking.net.GetProfile
 import otus.gbp.networking.net.NetService
@@ -47,5 +50,8 @@ class MainModuleProvider {
     @Provides
     fun okHttp(): OkHttpClient = OkHttpClient.Builder()
         .callTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BASIC)
+        })
         .build()
 }
