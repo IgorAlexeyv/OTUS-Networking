@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -14,12 +15,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import otus.gbp.networking.data.ViewState
+import otus.gbp.networking.net.Api
 import otus.gbp.networking.net.AuthInterceptor
 import otus.gbp.networking.net.GetProfile
 import otus.gbp.networking.net.NetService
+import otus.gbp.networking.net.buildRetrofit
+import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
@@ -58,4 +63,10 @@ class MainModuleProvider {
             setLevel(HttpLoggingInterceptor.Level.BASIC)
         })
         .build()
+
+    @Provides
+    fun retrofit(okHttp: OkHttpClient): Retrofit = buildRetrofit(okHttp)
+
+    @Provides
+    fun api(retrofit: Retrofit): Api = retrofit.create(Api::class.java)
 }

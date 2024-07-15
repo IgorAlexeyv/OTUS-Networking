@@ -61,6 +61,8 @@ dependencies {
 
     implementation(libs.net.okhttp)
     implementation(libs.net.okhttp.logging)
+    implementation(libs.net.retrofit)
+    implementation(libs.net.retrofit.kotlin)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

@@ -12,6 +12,7 @@ constraintlayout = "2.2.0"
 hilt = "2.55"
 lifecycle = "2.8.7"
 okhttp = "4.12.0"
+retrofit = "2.11.0"
 junit = "4.13.2"
 
 [libraries]
@@ -27,6 +28,8 @@ kotlin-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serializat
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kserialization" }
 net-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp"}
 net-okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp"}
+net-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit"}
+net-retrofit-kotlin = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version = "1.0.0"}
 kotlin-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
